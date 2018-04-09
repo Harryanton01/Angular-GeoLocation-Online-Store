@@ -1,0 +1,26 @@
+<form class="form-wrapper" [formGroup]="registrationForm"  (ngSubmit)="register()">
+  <h2 class="mat-title">User Registration</h2>
+  
+  <mat-form-field class="input">
+      <input matInput placeholder="Username" formControlName="username" required>
+      <mat-error *ngIf="formErrors.username">{{ formErrors.username }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="input">
+      <input matInput placeholder="Email" formControlName="email" required>
+      <mat-error *ngIf="formErrors.email">{{ formErrors.email }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="input">
+      <input matInput placeholder="Password" formControlName="password" type="password" required>
+      <mat-error *ngIf="formErrors.password">{{ formErrors.password }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="input">
+      <input matInput placeholder="Postcode" formControlName="postcode" required>
+      <mat-error *ngIf="formErrors.postcode">{{ formErrors.postcode }}</mat-error>
+  </mat-form-field>
+  <button mat-button type="button" (click)="getCurrentLocation()">Get Current Location</button>
+  <br>
+  <button mat-button type="submit" class="button" [disabled]="!registrationForm.valid">Register</button>
+</form>

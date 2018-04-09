@@ -1,0 +1,17 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  .gridcontainer {
+    display: grid;
+    border-width: 2px;
+    border-style: solid;
+    grid-gap: 10px;
+  }
+  .gridbox{
+    border-width: 2px;
+    border-style: solid;
+  }
+  .img{
+      max-width: 300px;
+      max-height: 150px;
+  }

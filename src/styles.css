@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+a {
+    color: #1c90f3;
+    font-weight: bold;
+  }
+  a:hover{
+    color: darken(#1c90f3, 50%)
+  }
+  
+  #wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+.input {
+    margin-bottom: 5px;
+  }
+.form-wrapper{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.button{
+  background-color: lightblue;
+}

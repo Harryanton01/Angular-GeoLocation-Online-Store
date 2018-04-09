@@ -1,0 +1,27 @@
+<p>
+  item-form works!
+</p>
+<form [formGroup]="itemForm">
+  <div class="form-group">
+    <label class="center-block">Title:
+      <input class="form-control" formControlName="title">
+    </label>
+    <div class="alert alert-danger" *ngIf="itemForm.touched && !itemForm.valid">
+      Please input an item name
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Description:
+      <input class="form-control" formControlName="desc">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Location:
+      <input class="form-control" formControlName="location">
+    </label>
+  </div>
+  <div class="form-group">
+    <button type="submit" [disabled]="!itemForm.valid" (click)='newItem()'>Submit</button>
+  </div>
+  <input type="file" (change)="onFileSelected($event)">
+</form>
