@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { GeoServiceService } from './geo-service.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { firestore } from 'firebase/app';
+import { PostcodeService } from './postcode.service';
 
 export interface User{
   username?: string;
@@ -18,7 +19,7 @@ export class AuthenticationService {
   public user: Observable<User>;
   public userDetails: firebase.User = null;
   private itemDoc: AngularFirestoreDocument<User>;
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private post: PostcodeService) {
       this.user = this.afAuth.authState
       .switchMap(user =>{
         if(user){
@@ -49,18 +50,17 @@ export class AuthenticationService {
       .catch(error => console.log(error) );
   }
   private setUserDoc(user, userData: User) {
-
     const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
-    console.log(user.username);
-    const data: User = {
-      username: userData.username,
-      email: user.email,
-      postcode: userData.postcode,
-      //location: userData.location
-    }
-
-    return userRef.set(data)
-
+    this.post.getPostCode(userData.postcode).subscribe(x => {
+      let location =  new firestore.GeoPoint(x.result.latitude, x.result.longitude);
+      const data: User = {
+        username: userData.username,
+        email: user.email,
+        postcode: userData.postcode,
+        location: location
+      }
+      return userRef.set(data)
+    });
   }
  logout() {
    this.afAuth.auth.signOut();
