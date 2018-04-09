@@ -14,7 +14,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { GeoServiceService } from './services/geo-service.service';
 import { MatDividerModule, MatButtonModule, MatCheckboxModule, 
 MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
-MatInputModule } from '@angular/material';
+MatInputModule, MatToolbarModule, MatMenuModule } from '@angular/material';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadService } from './uploads/upload.service';
@@ -28,6 +28,9 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { HttpClientModule } from '@angular/common/http';
 import { PostcodeService } from './services/postcode.service'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageComponent } from './message/message.component';
+import { TopNavigationComponent } from './top-navigation/top-navigation.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ItemFormComponent,
     ItemDetailsComponent,
     LoginFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    MessageComponent,
+    TopNavigationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +68,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
+    MatToolbarModule,
+    MatMenuModule,
     BrowserAnimationsModule
   ],
   providers: [ItemService, GeoServiceService, UploadService, AuthenticationService, AlertService, PostcodeService],

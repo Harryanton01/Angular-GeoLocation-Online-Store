@@ -6,12 +6,13 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/app', pathMatch: 'full' },
-  { path: 'app', component: AppComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
   { path: 'item', component: ItemDetailsComponent },
-  { path: 'itemList', component: ItemListComponent},
+  { path: 'itemlist', component: ItemListComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'register', component: RegistrationFormComponent}
 ];

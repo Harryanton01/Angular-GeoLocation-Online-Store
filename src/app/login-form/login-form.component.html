@@ -1,21 +1,20 @@
-
-<form [formGroup]="loginForm"  (ngSubmit)="login()">
-  <h3>User Login</h3>
-  <hr>
-  <label for="email">Email</label>
-  <input type="email" id="email" class="input" formControlName="email" required >
-
-  <div *ngIf="formErrors.email">
-    {{ formErrors.email }}
-  </div>
-
-  <label for="password">Password</label>
-  <input type="password" id="password" class="input" formControlName="password" required >
-
-  <div *ngIf="formErrors.password" class="help is-danger">
-    {{ formErrors.password }}
-  </div>
-
-  <button type="submit" class="button" [disabled]="!loginForm.valid">Login</button>
-  <button class="button" routerLink="register">Register</button>
+<div *ngIf="!(auth.user | async); else alreadyLoggedIn">
+<form class="form-wrapper" [formGroup]="loginForm"  (ngSubmit)="login()">
+  <h2 class="mat-title">User Login</h2>
+  
+  <mat-form-field class="input">
+      <input matInput placeholder="Email" formControlName="email" required>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="input">
+      <input matInput placeholder="Password" formControlName="password" type="password" required>
+  </mat-form-field>
+  <br>
+  <button mat-button type="submit" class="button" [disabled]="!loginForm.valid">Login</button>
 </form>
+</div>
+<ng-template #alreadyLoggedIn>
+  <p class="text-success">
+    Already logged in!
+  </p>
+</ng-template>

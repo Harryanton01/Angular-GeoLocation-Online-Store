@@ -3,37 +3,23 @@ import { Subject } from 'rxjs';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+export interface Message{
+  content: string;
+  style: string;
+}
 @Injectable()
 export class AlertService {
-  private subject = new Subject<any>();
-  private keepAfterNavigationChange = false;
 
-  constructor(private router: Router) {
-      // clear alert message on route change
-      router.events.subscribe(event => {
-          if (event instanceof NavigationStart) {
-              if (this.keepAfterNavigationChange) {
-                  // only keep for a single location change
-                  this.keepAfterNavigationChange = false;
-              } else {
-                  // clear alert
-                  this.subject.next();
-              }
-          }
-      });
-  }
+  private _msgSource = new Subject<Message | null>();    
 
-  success(message: string, keepAfterNavigationChange = false) {
-      this.keepAfterNavigationChange = keepAfterNavigationChange;
-      this.subject.next({ type: 'success', text: message });
-  }
-
-  error(message: string, keepAfterNavigationChange = false) {
-      this.keepAfterNavigationChange = keepAfterNavigationChange;
-      this.subject.next({ type: 'error', text: message });
-  }
-
-  getMessage(): Observable<any> {
-      return this.subject.asObservable();
-  }
+    msg = this._msgSource.asObservable();
+  
+    update(content: string, style: 'error' | 'info' | 'success') {
+      const msg: Message = { content, style };
+      this._msgSource.next(msg);
+    }
+  
+    clear() {
+      this._msgSource.next(null);
+    }
 }

@@ -7,6 +7,7 @@ import { GeoServiceService } from './geo-service.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { firestore } from 'firebase/app';
 import { PostcodeService } from './postcode.service';
+import { AlertService } from './alert.service';
 
 export interface User{
   username?: string;
@@ -16,28 +17,27 @@ export interface User{
 }
 @Injectable()
 export class AuthenticationService {
-  public user: Observable<User>;
+  public user: Observable<User | null>;
   public userDetails: firebase.User = null;
   private itemDoc: AngularFirestoreDocument<User>;
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private post: PostcodeService) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private post: PostcodeService, private alert: AlertService) {
       this.user = this.afAuth.authState
       .switchMap(user =>{
         if(user){
-          return this.db.doc<User>(`users/${user.uid}`).valueChanges()
+          return this.db.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             // logged out, null
             return Observable.of(null)
           }
         });
     }
+
   getUserDetails(): firebase.User{
     return this.userDetails;
   }
   login(email: string, password: string) {
-   this.afAuth.auth.signInWithEmailAndPassword(email,password)
-   .catch(function (response){
-    console.log("errorrrrr"+response);
-   });
+   return this.afAuth.auth.signInWithEmailAndPassword(email,password)
+   .then(() => console.log('log'));
   }
   checkUsername(userName: string){
     return this.db.collection('users',ref => ref.where('username', '==', userName)).valueChanges();
@@ -69,5 +69,9 @@ export class AuthenticationService {
       return this.afAuth.auth.signInWithPopup(
         new firebase.auth.TwitterAuthProvider()
       )
+    }
+    private handleError(error: Error) {
+      console.error(error);
+      this.alert.update(error.message, 'error');
     }
 }
