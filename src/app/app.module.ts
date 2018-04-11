@@ -14,7 +14,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { GeoServiceService } from './services/geo-service.service';
 import { MatDividerModule, MatButtonModule, MatCheckboxModule, 
 MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
-MatInputModule, MatToolbarModule, MatMenuModule } from '@angular/material';
+MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadService } from './uploads/upload.service';
@@ -70,7 +70,8 @@ import { HomeComponent } from './home/home.component';
     MatInputModule,
     MatToolbarModule,
     MatMenuModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [ItemService, GeoServiceService, UploadService, AuthenticationService, AlertService, PostcodeService],
   bootstrap: [AppComponent]

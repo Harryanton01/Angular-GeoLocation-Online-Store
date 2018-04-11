@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 a {
     color: #1c90f3;
     font-weight: bold;
@@ -37,4 +38,12 @@ a {
 }
 .logo img { 
   margin-right: 5px;
+}
+.grid-container{
+  width: 500px;
+  height: 500px;
+}
+.grid-container img{
+  width: 300px;
+  height: 250px;
 }

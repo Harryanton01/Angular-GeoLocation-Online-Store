@@ -9,7 +9,7 @@ export class PostcodeService {
   constructor(private http: HttpClient) { }
 
   getPostCode(postcode: string): Observable<any>{
-    return this.http.get('https://api.postcodes.io/postcodes/'+postcode);
+    return this.http.get('https://api.postcodes.io/postcodes/'+postcode).take(1);
   }
   checkPostCode(postcode: string): Observable<any>{
     console.log(typeof this.http.get('https://api.postcodes.io/postcodes/'+postcode+'/validate'));

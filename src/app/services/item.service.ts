@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -11,6 +11,7 @@ import { UploadService } from '../uploads/upload.service'
 import { AngularFireStorage } from 'angularfire2/storage';
 import { AppComponent } from '../app.component'
 import {AuthenticationService, User} from './authentication.service'
+import { mergeMap, switchMap, scan } from 'rxjs/operators';
 
 
 export interface item{
@@ -29,23 +30,32 @@ export class ItemService {
   dbRef:any;
   selectedFiles: FileList;
   currentUpload: Upload;
+  private itemlistID = new Subject<string>();
   uploadedURL: string;
   private itemDoc: AngularFirestoreDocument<item>;
+  public items: Observable<item[]>
+  public item: Observable<item>
+  private results =  new BehaviorSubject<item[]>([]);
+  itemarray: item[];
 
-  constructor(private geoDB: AngularFireDatabase, private db: AngularFirestore, private afStorage: AngularFireStorage, private authServ: AuthenticationService) { }
+  constructor(private geoDB: AngularFireDatabase, private db: AngularFirestore, private afStorage: AngularFireStorage, private authServ: AuthenticationService) {
+   }
   
-  getItems(): Observable<item[]>{
-    let itemlistID: Subject<string>=new Subject();
+   public getItems(lat: number,long: number, radius: number): Observable<item[]>{
     this.geoFire = new GeoFire(this.geoDB.list('items').query.ref);
     this.geoFire.query({
-      center: [51.5254842,-0.1057376],
-      radius: 20
+      center: [lat, long],
+      radius: radius
     }).on('key_entered', (key, location, distance)=>{
-      itemlistID.next(key);
+      this.itemlistID.next(key);
     });
-    return itemlistID.mergeMap(itemID => this.db.collection('items').doc<item>(itemID).valueChanges())
-    .scan((acc, next) => [...acc, next],[]);
-  }
+    this.itemlistID.mergeMap(itemID => this.db.collection('items').doc<item>(itemID)
+      .valueChanges())
+      .scan((acc, curr) => [...acc, curr],[])
+      .subscribe(x => this.results.next(x));
+      return this.results;
+   }
+
   getItem(itemID: string): any{
     return this.db.collection('items').doc<item>(itemID).valueChanges();
   }

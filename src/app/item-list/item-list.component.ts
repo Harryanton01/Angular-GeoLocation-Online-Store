@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { item, ItemService } from '../services/item.service';
 
@@ -8,11 +8,13 @@ import { item, ItemService } from '../services/item.service';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
+  @Input() postcode: string;
   items: Observable<item[]>;
   constructor(private itemService: ItemService) { }
 
   ngOnInit() {
-    this.items= this.itemService.getItems();
+  
   }
+ 
 
 }

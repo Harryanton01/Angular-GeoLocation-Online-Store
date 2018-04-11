@@ -1,3 +1,21 @@
-<p>
-  Home Page
-</p>
+<div class="search">
+  <h1 class="mat-title">Input your Postcode</h1>
+<input matInput id="postcode">
+<button mat-icon-button (click)="getItems()">
+    <mat-icon>search</mat-icon>
+</button>
+</div>
+
+<div *ngFor="let item of itemarray | async" routerLink="/item">
+  <div class="gridcontainer">
+  <mat-card>
+    {{item.title}}
+   
+      <img class="img" src="{{item.imageurl}}">
+      {{item.desc}}
+    <mat-divider [inset]="true"></mat-divider></mat-card>>
+    </div>
+</div>
+
+
+
