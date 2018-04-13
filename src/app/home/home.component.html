@@ -1,0 +1,25 @@
+<div class="search">
+  <h1 class="mat-title">Input your Postcode</h1>
+<input class="input-postcode" matInput id="postcode">
+<button mat-icon-button (click)="search()">
+    <mat-icon>search</mat-icon>
+</button>
+</div>
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+<div *ngFor="let item of itemarray | async">
+  
+  <mat-card>
+      <div class="wrapper">
+      <div class="title"><h2>{{item.title}}</h2></div>
+    <div class="image">
+        <img class="img" src="{{item.imageurl}}">
+    </div>
+      <div class="contenct">
+        {{item.desc}}
+      </div>
+    </div>
+    <mat-divider></mat-divider></mat-card>>
+    
+</div>
+
+
