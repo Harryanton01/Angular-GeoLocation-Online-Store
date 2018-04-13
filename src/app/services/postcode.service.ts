@@ -13,7 +13,7 @@ export class PostcodeService {
   }
   checkPostCode(postcode: string): Observable<any>{
     console.log(typeof this.http.get('https://api.postcodes.io/postcodes/'+postcode+'/validate'));
-    return this.http.get('https://api.postcodes.io/postcodes/'+postcode+'/validate');
+    return this.http.get('https://api.postcodes.io/postcodes/'+postcode+'/validate').take(1);
   }
   findNearestPostcode(geoPoint: firestore.GeoPoint): Observable<any>{
     return this.http.get('https://api.postcodes.io/postcodes?lon='+geoPoint.longitude+'&lat='+geoPoint.latitude).take(1);

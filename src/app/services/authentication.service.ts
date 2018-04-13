@@ -24,9 +24,11 @@ export class AuthenticationService {
       this.user = this.afAuth.authState
       .switchMap(user =>{
         if(user){
+          this.userDetails=user;
           return this.db.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             // logged out, null
+            this.userDetails=null;
             return Observable.of(null)
           }
         });

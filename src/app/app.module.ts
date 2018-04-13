@@ -31,6 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageComponent } from './message/message.component';
 import { TopNavigationComponent } from './top-navigation/top-navigation.component';
 import { HomeComponent } from './home/home.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { HomeComponent } from './home/home.component';
     RegistrationFormComponent,
     MessageComponent,
     TopNavigationComponent,
-    HomeComponent
+    HomeComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { HomeComponent } from './home/home.component';
     MatToolbarModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    InfiniteScrollModule
   ],
   providers: [ItemService, GeoServiceService, UploadService, AuthenticationService, AlertService, PostcodeService],
   bootstrap: [AppComponent]

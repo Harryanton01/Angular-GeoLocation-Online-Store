@@ -8,12 +8,6 @@ a {
   a:hover{
     color: darken(#1c90f3, 50%)
   }
-  
-  #wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
 
 .input {
     margin-bottom: 5px;
@@ -38,12 +32,4 @@ a {
 }
 .logo img { 
   margin-right: 5px;
-}
-.grid-container{
-  width: 500px;
-  height: 500px;
-}
-.grid-container img{
-  width: 300px;
-  height: 250px;
 }

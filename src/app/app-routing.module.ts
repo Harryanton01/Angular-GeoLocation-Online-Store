@@ -7,6 +7,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { HomeComponent } from './home/home.component';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'item', component: ItemDetailsComponent },
   { path: 'itemlist', component: ItemListComponent},
   { path: 'login', component: LoginFormComponent},
+  { path: 'newitem', component: ItemFormComponent},
   { path: 'register', component: RegistrationFormComponent}
 ];
 @NgModule({
