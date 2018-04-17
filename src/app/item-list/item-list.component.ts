@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { item, ItemService } from '../services/item.service';
+import { Item, ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-item-list',
@@ -9,7 +9,7 @@ import { item, ItemService } from '../services/item.service';
 })
 export class ItemListComponent implements OnInit {
   @Input() postcode: string;
-  items: Observable<item[]>;
+  items: Observable<Item[]>;
   constructor(private itemService: ItemService) { }
 
   ngOnInit() {

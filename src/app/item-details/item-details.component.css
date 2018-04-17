@@ -1,0 +1,48 @@
+
+.wrapper {
+    max-width: 940px;
+    margin: 0 auto;
+  }
+  .wrapper > div {
+    border: 2px solid rgb(233,171,88);
+    border-radius: 5px;
+    background-color: rgba(233,171,88,.5);
+    padding: 1em;
+    color: #d9480f;
+  }.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+  .title{
+      font-size: 1.5em;
+      grid-column: 1/4;
+      grid-row: 1;
+      text-align: center;
+  }
+.image{
+    grid-column: 1 / 4;
+    grid-row: 2 / 5;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .description{
+      font-size: 1.2em;
+    grid-column: 1/4;
+    grid-row: 5/7;
+  }
+  .details{
+    grid-column: 1/4;
+    grid-row: 7/8;
+    font-style: italic;
+  }
+  .itembutton{
+    grid-column: 1/4;
+    grid-row: 8/9;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .image img{
+      max-height: 500px;
+    }

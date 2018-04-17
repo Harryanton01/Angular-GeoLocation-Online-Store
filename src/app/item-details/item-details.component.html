@@ -1,7 +1,25 @@
-<h3>Item Details Page</h3>
-<div class="grid grid-pad">
-<div *ngIf="item">
-    <h2>{{ item.title | uppercase }} Details</h2>
-    <div><span>id: </span>{{item.id}}</div>
-  </div>
+
+  
+    <div *ngIf="item" class="wrapper">
+      <div class="image">
+          <img class="img" src="{{item.imageURL}}">
+      </div>
+      <div class="title">
+          <h2>{{ item.title | uppercase }}</h2>
+      </div>
+      <div class="description">
+        {{item.description}}
+      </div>
+      <div class="details">
+          Posted by {{item.username}} on {{item.timestamp | date:'medium' }}
+      </div>
+      <div class="itembutton" *ngIf="loggedIn" >
+          <button (click)="message()">Message</button>
+        </div>
+      </div>
+    
+      
+      
+<div *ngIf="displayLocation">
+    <app-google-map [itemID]="this.itemID"></app-google-map>
   </div>

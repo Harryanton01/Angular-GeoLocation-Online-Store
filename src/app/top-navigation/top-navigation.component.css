@@ -1,15 +1,22 @@
-nav {
-    border-bottom: 1px solid #E4E4E4;
-    box-shadow: 0 0 4px rgba(0,0,0,.1), 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 25px;
-    padding: 0 5vw;
-    padding-right: 60px;
-   
+  .navwrapper{
+    border-radius: 1em;
+    color: white;
+    height: 70px;
   }
-  .nav-item {
-    color: gray;
-    padding: 10px;
+  .space{
+    flex: 1 1 auto;
   }
-  .nav-right{
-      margin-left: 30%
+  .nav-item{
+    font-size: 36px;
+    padding: 1em;
   }
+  #userimage{
+    width: 35px;
+    height: 35px;
+  }
+  .nav-item :hover{
+    color: black;
+    background-color: black;
+    transition: ease-in 0.2s;
+  }
+  

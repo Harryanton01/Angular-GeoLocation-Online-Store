@@ -1,0 +1,19 @@
+.message{
+    flex-direction: column;
+    margin: 10px 0;
+}
+.chatfeed{
+    display: flex;
+    flex-direction: column;
+}
+.feedWrapper {
+    background-color: #fff;
+    background:  rgba(172, 172, 172, 0.6);
+    border-radius: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.2em;
+    padding:20px 0px 0px 24px;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}

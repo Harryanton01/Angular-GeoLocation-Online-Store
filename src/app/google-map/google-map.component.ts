@@ -1,35 +1,52 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GeoServiceService } from '../services/geo-service.service'
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ItemService } from '../services/item.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { User } from '../services/authentication.service'
+import { AlertService } from '../services/alert.service';
+
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css']
 })
 export class GoogleMapComponent implements OnInit {
-  lat: number;
-  lng: number;
-  markers: any;
-  subscription: any;
-  constructor(private geo: GeoServiceService) {
+  @Input() itemID: string
 
+  lat: number;
+  long: number;
+  itemlat: number;
+  itemlong: number;
+  loggedIn: boolean=false;
+  dir=undefined;
+ 
+  constructor(private itemService: ItemService, private auth: AngularFireAuth, private db: AngularFirestore, private alert: AlertService) {
+    
   }
   ngOnInit() {
-    this.getUserLocation();
-    this.subscription = this.geo.hits
-        .subscribe(hits => this.markers = hits);
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  private getUserLocation() {
-    if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        console.log("lat: "+this.lat+" long: "+this.lng);
-        this.geo.getLocations(0.75, [this.lat, this.lng]);
-      });
+    console.log('init')
+    //this.geo.
+    this.auth.authState.subscribe(auth => {
+      if(auth !== undefined && auth !==null){
+        this.db.doc<any>('users/'+auth.uid).valueChanges()
+        .subscribe(x =>{
+        this.lat=x.location._lat
+        this.long=x.location._long
+        this.loggedIn=true;
+        this.itemService.getItem(this.itemID).subscribe(x =>{
+          this.itemlat=x.location._lat;
+          this.itemlong=x.location._long
+          this.dir = {
+            startingPoint: {lat:this.lat,lng:this.long},
+            destination: {lat:x.location._lat,lng:x.location._long}
+          }
+        });
+      })
     }
+    else{
+      this.loggedIn=false;
+      this.alert.update('Please login to view location or to message user', 'info')
+    }
+  });
   }
 }

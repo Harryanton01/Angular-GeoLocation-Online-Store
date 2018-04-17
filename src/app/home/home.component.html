@@ -6,20 +6,23 @@
 </button>
 </div>
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-<div *ngFor="let item of itemarray | async">
-  
+<div *ngFor="let item of itemarray | async" (click)="onItemClick(item)">
   <mat-card>
+    <a routerLink="/details/{{item.itemID}}">
       <div class="wrapper">
       <div class="title"><h2>{{item.title}}</h2></div>
     <div class="image">
-        <img class="img" src="{{item.imageurl}}">
+        <img class="img" src="{{item.imageURL}}">
     </div>
-      <div class="contenct">
-        {{item.desc}}
+      <div class="content">
+        {{item.description}}
+      </div>
+      <div class="details">
+        Posted by {{item.username}} on {{item.timestamp | date:'medium' }}
       </div>
     </div>
+    </a>
     <mat-divider></mat-divider></mat-card>>
-    
 </div>
 
 

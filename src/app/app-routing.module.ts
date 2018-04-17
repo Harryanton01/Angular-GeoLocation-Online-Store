@@ -8,6 +8,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { HomeComponent } from './home/home.component';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { ChatfeedComponent } from './chat/chatfeed/chatfeed.component';
+import { UserlistComponent } from './chat/userlist/userlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +18,10 @@ const routes: Routes = [
   { path: 'itemlist', component: ItemListComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'newitem', component: ItemFormComponent},
-  { path: 'register', component: RegistrationFormComponent}
+  { path: 'register', component: RegistrationFormComponent},
+  { path: 'details/:itemID', component: ItemDetailsComponent},
+  { path: 'chat/:chatID', component: ChatfeedComponent},
+  { path: 'messages', component: UserlistComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

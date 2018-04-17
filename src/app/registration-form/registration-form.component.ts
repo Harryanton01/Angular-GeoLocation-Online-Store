@@ -10,7 +10,7 @@ import { PostcodeValidator } from '../validators/postcode.validator';
 import { UsernameValidator } from '../validators/username.validator';
 import 'rxjs/add/operator/take';
 import { firestore } from 'firebase/app'
-import { GeoServiceService } from '../services/geo-service.service';
+import { GeoService } from '../services/geo-service.service';
 
 
 type UserFields = 'email' | 'password' |'postcode' | 'username';
@@ -54,7 +54,7 @@ export class RegistrationFormComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private post: PostcodeService,
-  private geoService: GeoServiceService) { }
+  private geoService: GeoService) { }
 
   ngOnInit() {
     this.buildForm();

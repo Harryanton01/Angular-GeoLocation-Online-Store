@@ -13,14 +13,20 @@ import { AppComponent } from '../app.component'
 import {AuthenticationService, User} from './authentication.service'
 import { mergeMap, switchMap, scan } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { MessagingService } from './messaging.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
-export interface item{
-  desc: string;
-  imageurl: string;
+export interface Item{
+  itemID: string;
+  description: string;
+  imageURL: string;
   title: string;
-  userid: string;
+  userID: string;
+  username: string;
   location: firestore.GeoPoint;
+  enablelocation: boolean;
+  timestamp: string;
 }
 
 @Injectable()
@@ -33,21 +39,30 @@ export class ItemService {
   currentUpload: Upload;
   private itemlistID = new Subject<string>();
   uploadedURL: string;
-  private itemDoc: AngularFirestoreDocument<item>;
-  public items: Observable<item[]>
-  public item: Observable<item>
-  private results =  new Subject<item[]>(); 
-  itemarray: item[];
+  private itemDoc: AngularFirestoreDocument<Item>;
+  public items: Observable<Item[]>
+  public item: Observable<Item>
+  private results =  new Subject<Item[]>(); 
+  username: string | null;
+  itemarray: Item[];
 
-  constructor(private geoDB: AngularFireDatabase, private db: AngularFirestore, private afStorage: AngularFireStorage, private authServ: AuthenticationService) {
-    
+  constructor(private geoDB: AngularFireDatabase, private db: AngularFirestore, private afStorage: AngularFireStorage, private authServ: AuthenticationService,
+  private message: MessagingService, private auth: AngularFireAuth) {
+    this.auth.authState.subscribe(auth => {
+      if(auth !== undefined && auth !==null){
+        this.db.doc<User>('users/'+auth.uid).valueChanges()
+        .subscribe(x =>{
+        this.username=x.username;
+      })
+    }
+  });
    }
   ngOnDestroy(){
     this.results.unsubscribe();
     this.itemlistID.unsubscribe();
     this.geoFire.unsubscribe();
   }
-   public getItems(lat: number,long: number, radius: number): Observable<item[]>{
+   public getItems(lat: number,long: number, radius: number): Observable<Item[]>{
     let queryRef= this.geoDB.list('/items');
 
     this.geoFire = new GeoFire(queryRef.query.ref);
@@ -59,7 +74,7 @@ export class ItemService {
       this.itemlistID.next(key);
     });}, 1000);
   
-    this.itemlistID.mergeMap(itemID => this.db.collection('items').doc<item>(itemID)
+    this.itemlistID.mergeMap(itemID => this.db.collection('items').doc<Item>(itemID)
       .valueChanges())
       .scan((acc, curr) => [...acc, curr],[])
       .delay(500)
@@ -71,24 +86,24 @@ export class ItemService {
    }
   
   getItem(itemID: string): any{
-    return this.db.collection('items').doc<item>(itemID).valueChanges();
+    return this.db.collection('items').doc<Item>(itemID).valueChanges();
   }
-  createItem(data: item){
+  createItem(data: Item){
       var key=this.db.createId();
-      this.itemDoc = this.db.doc<item>('items/'+key);
+      this.itemDoc = this.db.doc<Item>('items/'+key);
       console.log(key);
       this.itemDoc.set(data);
   }
-  createItemImage(data: item, file: File){
+  createItemwithImage(data: Item, file: File){
     let key=this.db.createId();
-    this.itemDoc = this.db.doc<item>('items/'+key);
-    console.log(key);
+    this.itemDoc = this.db.doc<Item>('items/'+key);
     let upload=this.afStorage.upload(key, file);
     upload.downloadURL().subscribe(url =>{
-      data.imageurl=url;
-      data.location = new firestore.GeoPoint(50.8422668,-0.1103846999999405);
-      data.userid=this.authServ.getUserDetails().uid;
-      //data.userid=appComp.userDetails.uid;
+      data.imageURL=url;
+      data.itemID=key;
+      data.userID=this.authServ.getUserDetails().uid;
+      data.timestamp=this.message.getTimeStamp().toJSON();
+      data.username=this.username;
       this.itemDoc.set(data);
     });
   }

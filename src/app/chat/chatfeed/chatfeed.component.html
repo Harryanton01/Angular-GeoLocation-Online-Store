@@ -1,0 +1,10 @@
+<div class="feedWrapper">
+<div class="chatfeed">
+<div *ngIf="loggedIn && authorised">
+<div *ngFor="let message of feed | async" class="message">
+  <app-message [message]=message></app-message>
+</div>
+<app-chatinput></app-chatinput>
+</div>
+</div>
+</div>

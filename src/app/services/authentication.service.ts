@@ -3,17 +3,17 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { GeoServiceService } from './geo-service.service';
+import { GeoService } from './geo-service.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { firestore } from 'firebase/app';
 import { PostcodeService } from './postcode.service';
 import { AlertService } from './alert.service';
 
 export interface User{
-  username?: string;
+  username: string;
   email: string;
   postcode: string;
-  location?: firestore.GeoPoint;
+  location: firestore.GeoPoint;
 }
 @Injectable()
 export class AuthenticationService {
@@ -36,6 +36,9 @@ export class AuthenticationService {
 
   getUserDetails(): firebase.User{
     return this.userDetails;
+  }
+  getUser(){
+    return this.user;
   }
   login(email: string, password: string) {
    return this.afAuth.auth.signInWithEmailAndPassword(email,password)

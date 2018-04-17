@@ -1,0 +1,10 @@
+<div *ngFor="let user of users | async" >
+    <a routerLink="/messages/{{user.chatID}}">
+  <li>{{user.user2}}</li>
+  </a>
+</div>
+<div *ngFor="let user of users2 | async" >
+    <a routerLink="/messages/{{user.chatID}}">
+    <li>{{user.user1}}</li>
+    </a>
+  </div>

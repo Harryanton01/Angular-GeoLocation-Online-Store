@@ -1,9 +1,13 @@
-.alert {
+.is-danger {
     padding: 20px;
     background-color: #f44336;
     color: white;
 }
-
+.is-info {
+    padding: 20px;
+    background-color: #efb700;
+    color: white;
+}
 .closebtn {
     margin-left: 15px;
     color: white;
