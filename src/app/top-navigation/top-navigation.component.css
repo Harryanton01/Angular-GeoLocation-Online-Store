@@ -14,9 +14,21 @@
     width: 35px;
     height: 35px;
   }
-  .nav-item :hover{
-    color: black;
-    background-color: black;
-    transition: ease-in 0.2s;
-  }
+
+  nav {
+    border-bottom: 1px solid #E4E4E4;
+    box-shadow: 0 0 4px rgba(0,0,0,.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    padding: 0 5vw;
+    padding-right: 60px;
   
+  }
+  .nav-item {
+    color: white;
+    font-weight: normal;
+    transition: color 0.3s ease;
+    
+  }
+  .nav-item:hover {
+    color: yellow;
+  }

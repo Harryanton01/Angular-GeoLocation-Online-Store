@@ -21,9 +21,9 @@
       <input matInput placeholder="Postcode" formControlName="postcode" required>
       <mat-error *ngIf="formErrors.postcode">{{ formErrors.postcode }}</mat-error>
   </mat-form-field>
-  <button mat-button type="button" (click)="getCurrentLocation()">Get Current Location</button>
+  <button mat-button type="button" class="mat-raised-button" (click)="getCurrentLocation()">Get Current Location</button>
   <br>
-  <button mat-button type="submit" class="button" [disabled]="!registrationForm.valid">Register</button>
+  <button mat-button type="submit" class="mat-raised-button mat-primary" [disabled]="!registrationForm.valid">Register</button>
 </form>
 </div>
 

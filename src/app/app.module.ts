@@ -13,7 +13,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { GeoService } from './services/geo-service.service';
 import { MatDividerModule, MatButtonModule, MatCheckboxModule, 
 MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
-MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSlideToggleModule } from '@angular/material';
+MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, 
+MatSlideToggleModule, MatDialogModule, MatDialog } from '@angular/material';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadService } from './uploads/upload.service';
@@ -39,6 +40,8 @@ import { ChatinputComponent } from './chat/chatinput/chatinput.component';
 import { UserlistComponent } from './chat/userlist/userlist.component';
 import { MessageComponent } from './chat/message/message.component'
 import { AgmDirectionModule } from 'agm-direction';
+import { UpdateFormComponent } from './update-form/update-form.component';
+import { NotificationService } from './notification.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,8 @@ import { AgmDirectionModule } from 'agm-direction';
     ChatroomComponent,
     ChatinputComponent,
     UserlistComponent,
-    MessageComponent
+    MessageComponent,
+    UpdateFormComponent
   ],
   imports: [
     BrowserModule,
@@ -88,9 +92,11 @@ import { AgmDirectionModule } from 'agm-direction';
     MatIconModule,
     InfiniteScrollModule,
     MatSlideToggleModule,
-    AgmDirectionModule
+    AgmDirectionModule,
+    MatDialogModule
   ],
-  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService],
-  bootstrap: [AppComponent]
+  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService, NotificationService],
+  bootstrap: [AppComponent],
+  entryComponents: [UpdateFormComponent]
 })
 export class AppModule { }

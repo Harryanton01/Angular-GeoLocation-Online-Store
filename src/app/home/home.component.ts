@@ -32,11 +32,13 @@ export class HomeComponent{
   private itemarray: Observable<Item[]>
   private selectedItem: Item;
   private user: firebase.User;
+  private unsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private router: Router, private itemService: ItemService, private post: PostcodeService, private alert: AlertService, 
     private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { }
   
   ngOnInit(){
+    this.itemarray=null;
     this.alert.clear();
     this.auth.authState.subscribe(auth => {
       if(auth !== undefined && auth !==null){
@@ -45,7 +47,10 @@ export class HomeComponent{
       }
     });
   }
-
+  ngOnDestroy(){
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
   search(){
     this.alert.clear();
     this.itemarray=null;
@@ -67,7 +72,7 @@ export class HomeComponent{
   queryUserPostcode(){
     this.db.doc<User>('users/'+this.user.uid).valueChanges().subscribe(x =>{
       (<HTMLInputElement>document.getElementById('postcode')).value=x.postcode;
-      this.search();
+      //this.search();
     })
   }
   getItems(){
@@ -80,9 +85,10 @@ export class HomeComponent{
           this.itemarray=null;
         }
         this.showSpinner=false;
-      },4000);
+      },3000);
       this.itemarray = new Observable<Item[]>()
-      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, 10);
+      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, 10)
+      .takeUntil(this.unsubscribe);
       this.itemarray.subscribe(() => {
         this.alert.clear();
         this.showSpinner=false;

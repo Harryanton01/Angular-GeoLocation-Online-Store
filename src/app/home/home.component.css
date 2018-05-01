@@ -1,15 +1,4 @@
-.search{
-    width: 250px;
-    height: 250px;
 
-    position: relative;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-}
 .wrapper {
     max-width: 940px;
     margin: 0 auto;
@@ -48,4 +37,23 @@
   .details{
     grid-column: 2/4;
     grid-row: 4/5;
+  }
+  .search{
+    width: 50em;
+    height: 16em;
+    font-weight: bold;
+    position: relative;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-style: dashed;
+    border-color: yellow;
+    border-width: 2px;
+    margin: auto;
+    margin-top: 3em;
+  }
+  #postcode{
+    text-align: center;
+    width:100%
   }

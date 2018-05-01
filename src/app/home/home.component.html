@@ -1,6 +1,9 @@
 <div class="search">
-  <h1 class="mat-title">Input your Postcode</h1>
-<input class="input-postcode" matInput id="postcode">
+  <h1 class="mat-title">Search for nearby items</h1>
+  <mat-form-field>
+    <input class="input-postcode" matInput placeholder="INPUT POSTCODE" id="postcode">
+  </mat-form-field>
+
 <button mat-icon-button (click)="search()">
     <mat-icon>search</mat-icon>
 </button>
