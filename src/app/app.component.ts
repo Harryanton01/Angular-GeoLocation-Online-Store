@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { ItemService, Item } from './services/item.service';
 import { GeoServiceService } from './geo-service.service'
 import {AuthenticationService} from './services/authentication.service'
+import { NotificationService } from './notification.service';
 
 
 @Component({

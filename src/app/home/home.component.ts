@@ -34,8 +34,7 @@ export class HomeComponent{
   private selectedItem: Item;
   private user: firebase.User;
   private unsubscribe: Subject<void> = new Subject<void>();
-  private distance = 5;
-  private settings: firestore.Settings;
+
 
   constructor(private router: Router, private itemService: ItemService, private post: PostcodeService, private alert: AlertService, 
     private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { 
@@ -56,10 +55,7 @@ export class HomeComponent{
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-  onDistanceChange(event: any){
-    this.distance = event.value;
-    this.search();
-  }
+
   search(){
     this.alert.clear();
     this.itemarray=null;
@@ -81,6 +77,7 @@ export class HomeComponent{
   queryUserPostcode(){
     this.db.doc<User>('users/'+this.user.uid).valueChanges().subscribe(x =>{
       (<HTMLInputElement>document.getElementById('postcode')).value=x.postcode;
+
     })
   }
   getItems(){
@@ -93,9 +90,7 @@ export class HomeComponent{
           this.itemarray=null;
         }
         this.showSpinner=false;
-      },2500);
-      this.itemarray = new Observable<Item[]>()
-      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, this.distance)
+
       .takeUntil(this.unsubscribe);
       this.itemarray.subscribe(() => {
         this.alert.clear();

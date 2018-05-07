@@ -14,7 +14,7 @@ import { GeoService } from './services/geo-service.service';
 import { MatDividerModule, MatButtonModule, MatCheckboxModule, 
 MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
 MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, 
-MatSlideToggleModule, MatDialogModule, MatDialog, MatSliderModule } from '@angular/material';
+
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadService } from './uploads/upload.service';
@@ -93,10 +93,7 @@ import { UpdateFormComponent } from './update-form/update-form.component';
     InfiniteScrollModule,
     MatSlideToggleModule,
     AgmDirectionModule,
-    MatDialogModule,
-    MatSliderModule
-  ],
-  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService],
+
   bootstrap: [AppComponent],
   entryComponents: [UpdateFormComponent]
 })
