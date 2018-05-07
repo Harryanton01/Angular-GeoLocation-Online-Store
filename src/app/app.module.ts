@@ -41,7 +41,7 @@ import { UserlistComponent } from './chat/userlist/userlist.component';
 import { MessageComponent } from './chat/message/message.component'
 import { AgmDirectionModule } from 'agm-direction';
 import { UpdateFormComponent } from './update-form/update-form.component';
-import { NotificationService } from './notification.service';
+
 
 @NgModule({
   declarations: [
@@ -96,7 +96,7 @@ import { NotificationService } from './notification.service';
     MatDialogModule,
     MatSliderModule
   ],
-  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService, NotificationService],
+  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService],
   bootstrap: [AppComponent],
   entryComponents: [UpdateFormComponent]
 })
