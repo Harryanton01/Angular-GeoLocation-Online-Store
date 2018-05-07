@@ -12,8 +12,9 @@ import { AgmCoreModule } from '@agm/core';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { GeoService } from './services/geo-service.service';
 import { MatDividerModule, MatButtonModule, MatCheckboxModule, 
-MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
-MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, 
+  MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
+  MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, 
+  MatSlideToggleModule, MatDialogModule, MatDialog, MatSliderModule, MatSlider } from '@angular/material';
 
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -93,7 +94,10 @@ import { UpdateFormComponent } from './update-form/update-form.component';
     InfiniteScrollModule,
     MatSlideToggleModule,
     AgmDirectionModule,
-
+    MatSliderModule,
+    MatDialogModule
+  ],
+  providers: [ItemService, GeoService, UploadService, AuthenticationService, AlertService, PostcodeService, MessagingService],
   bootstrap: [AppComponent],
   entryComponents: [UpdateFormComponent]
 })
