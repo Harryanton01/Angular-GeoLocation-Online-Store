@@ -21,13 +21,8 @@ export class LoginFormComponent implements OnInit {
   login() {
     this.auth.login(this.loginForm.value['email'], this.loginForm.value['password'])
     .then(() => this.afterSignIn())
-    .catch(error => this.alert.update(error, 'error'));
+    .catch(error => this.alert.update('Invalid email and/or password!', 'error'));
   }
-
-  /*resetPassword() {
-    this.auth.resetPassword(this.userForm.value['email'])
-      .then(() => this.passReset = true);
-  }*/
 
   buildForm() {
     this.loginForm = this.fb.group({
@@ -43,7 +38,6 @@ export class LoginFormComponent implements OnInit {
     });
   }
   private afterSignIn() {
-    // Do after login stuff here, such router redirects, toast messages, etc.
     this.router.navigate(['/home']);
   }
 }

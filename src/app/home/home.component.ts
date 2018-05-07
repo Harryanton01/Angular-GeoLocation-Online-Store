@@ -35,11 +35,10 @@ export class HomeComponent{
   private user: firebase.User;
   private unsubscribe: Subject<void> = new Subject<void>();
   private distance = 5;
+  private read = true;
 
   constructor(private router: Router, private itemService: ItemService, private post: PostcodeService, private alert: AlertService, 
-    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { 
-      
-    }
+    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { }
   
   ngOnInit(){
     this.itemarray=null;

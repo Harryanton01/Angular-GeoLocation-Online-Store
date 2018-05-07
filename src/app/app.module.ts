@@ -15,7 +15,6 @@ import { MatDividerModule, MatButtonModule, MatCheckboxModule,
   MatGridListModule, MatGridList, MatCardModule, MatFormFieldModule,
   MatInputModule, MatToolbarModule, MatMenuModule, MatIconModule, 
   MatSlideToggleModule, MatDialogModule, MatDialog, MatSliderModule, MatSlider } from '@angular/material';
-
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadService } from './uploads/upload.service';
@@ -36,7 +35,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
 import { MessagingService } from './services/messaging.service';
 import { ChatfeedComponent } from './chat/chatfeed/chatfeed.component';
-import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 import { ChatinputComponent } from './chat/chatinput/chatinput.component';
 import { UserlistComponent } from './chat/userlist/userlist.component';
 import { MessageComponent } from './chat/message/message.component'
@@ -58,7 +56,6 @@ import { UpdateFormComponent } from './update-form/update-form.component';
     HomeComponent,
     LoadingSpinnerComponent,
     ChatfeedComponent,
-    ChatroomComponent,
     ChatinputComponent,
     UserlistComponent,
     MessageComponent,

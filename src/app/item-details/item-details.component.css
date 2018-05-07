@@ -4,45 +4,86 @@
     margin: 0 auto;
   }
   .wrapper > div {
-    border: 2px solid rgb(233,171,88);
-    border-radius: 5px;
-    background-color: rgba(233,171,88,.5);
     padding: 1em;
-    color: #d9480f;
-  }.wrapper {
+    color: #545454;
+  }
+  .wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
   }
   .title{
-      font-size: 1.5em;
-      grid-column: 1/4;
-      grid-row: 1;
-      text-align: center;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    background-color: azure;
+    font-size: 1.5em;
+    grid-column: 1/4;
+    grid-row: 1;
+    text-align: center;
   }
-.image{
+  .image{
     grid-column: 1 / 4;
     grid-row: 2 / 5;
     margin-left: auto;
     margin-right: auto;
   }
   .description{
-      font-size: 1.2em;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    background-color: azure;
+    font-size: 1.2em;
     grid-column: 1/4;
     grid-row: 5/7;
   }
   .details{
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    background-color: azure;
     grid-column: 1/4;
     grid-row: 7/8;
     font-style: italic;
   }
   .itembutton{
+    border: none;
+    background-color: transparent;
     grid-column: 1/4;
     grid-row: 8/9;
     margin-left: auto;
     margin-right: auto;
   }
   .image img{
-      max-height: 500px;
+    border-radius: 30px;
+    max-height: 500px;
+    }
+    .update-button{
+      font-size: 32px;
+      width: 8em;
+      color : rgb(49, 46, 46);
+      background-color: rgba(255, 222, 121, 0.96);
+      border-radius: 10px;
+      box-shadow: 5px rgba(0, 0, 0, 0.26);
+    }
+    .delete-button{
+      font-size: 32px;
+      width: 8em;
+      color : white;
+      background-color: red;
+      border-radius: 10px;
+      box-shadow: 5px rgba(0, 0, 0, 0.26);
+    }
+    .message-button{
+      font-size: 32px;
+      width: 12em;
+      color : white;
+      background-color: #00B200;
+      border-radius: 10px;
+      box-shadow: 5px rgba(0, 0, 0, 0.26);
+    }
+    @media only screen and (max-width: 800px) {
+      .image img{
+        border-radius: 30px;
+        max-height: 380px;
+        max-width: 300px;
+        }
     }

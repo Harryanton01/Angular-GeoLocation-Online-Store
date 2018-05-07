@@ -4,9 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { ItemService, Item } from './services/item.service';
-import { GeoServiceService } from './geo-service.service'
-import {AuthenticationService} from './services/authentication.service'
-import { NotificationService } from './notification.service';
+import { GeoServiceService } from './geo-service.service';
+import {AuthenticationService} from './services/authentication.service';
 
 
 @Component({

@@ -5,6 +5,8 @@
   <mat-form-field>
     <input class="input-postcode" matInput placeholder="INPUT POSTCODE" id="postcode">
   </mat-form-field>
+  <br>
+  <button mat-button type="button" class="mat-raised-button" (click)="getCurrentLocation()">Get Current Location <mat-icon>room</mat-icon></button>
   
   <mat-divider></mat-divider>
     <p>Distance: {{distance}} km</p>
@@ -13,6 +15,7 @@
     <button class="mat-raised-button mat-primary" mat-icon-button (click)="search()">
         <mat-icon>search</mat-icon>
         </button>
+        <br>
     </div>
 </div>
 

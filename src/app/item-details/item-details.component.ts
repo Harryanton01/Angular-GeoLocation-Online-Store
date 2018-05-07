@@ -37,12 +37,11 @@ export class ItemDetailsComponent implements OnInit {
         this.loggedIn=true;
       }
       else{
-        console.log(this.user)
+        this.alert.update('To message the user or view item location (if it is provided), please log in.','info');
         this.user=null;
         this.loggedIn=false;
       }
     });
-    console.log(this.user)
     this.getItem();    
   }
   getItem(): void {

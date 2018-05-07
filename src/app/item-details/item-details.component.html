@@ -13,14 +13,14 @@
       <div class="details">
           Posted by {{item.username}} on {{item.timestamp | date:'medium' }}
       </div>
-      <div class="itembutton" *ngIf="(loggedIn && !personalItem) else notPersonal" >
-        <button (click)="message()">Message</button>
+      <div class="itembutton" *ngIf="(loggedIn && !personalItem) else Personal" >
+        <button class="message-button" (click)="message()">Message</button>
         </div>
       
-      <ng-template #notPersonal>
+      <ng-template #Personal>
         <div class="itembutton" *ngIf="loggedIn && personalItem">
-            <button class="mat-raised-button" (click)="openUpdateForm()"> Update </button>
-            <button class="mat-raised-button" (click)="delete()"> Delete </button>
+            <button class="update-button" (click)="openUpdateForm()"> Update </button>
+            <button class="delete-button" (click)="delete()"> Delete </button>
         </div>
       </ng-template>
     </div>

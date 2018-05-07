@@ -43,7 +43,6 @@ export class ItemFormComponent implements OnInit {
         this.itemForm.controls.location.setValue(this.user.postcode);
       }
     });
-    this.alert.update('Please note that your location will be securely stored and can only be accessed by you.','info');
   }
   createForm(){
     this.itemForm = this.fb.group({
@@ -52,6 +51,25 @@ export class ItemFormComponent implements OnInit {
       location: ['', Validators.required],
       enablelocation: false
     })
+  }
+  getCurrentLocation(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position=>{
+        let location = new firestore.GeoPoint(position.coords.latitude,position.coords.longitude);
+        this.post.findNearestPostcode(location)
+        .subscribe(val => {
+          if(val.result==null){
+            this.alert.update('The Postcode Service is currently not available. Please manually input your postcode.', 'error')
+          }
+          else{
+            this.itemForm.controls.location.setValue(val.result[0].postcode);
+          }
+        });
+      });
+    }
+    else{
+      this.alert.update('Browser Denied Location! Please manually input your postcode.', 'error')
+    }
   }
   getCoordinates(){
     this.post.checkPostCode(this.itemForm.controls.location.value).subscribe(x =>{ 

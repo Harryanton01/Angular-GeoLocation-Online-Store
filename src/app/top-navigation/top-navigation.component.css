@@ -1,34 +1,51 @@
-  .navwrapper{
-    border-radius: 1em;
-    color: white;
-    height: 70px;
-  }
+.navwrapper{
+  border-radius: 1em;
+  color: white;
+  height: 70px;
+}
+.space{
+  flex: 1 1 auto;
+}
+#userimage{
+  width: 35px;
+  height: 35px;
+}
+
+nav {
+  border-bottom: 1px solid #E4E4E4;
+  box-shadow: 0 0 4px rgba(0,0,0,.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  padding: 0 5vw;
+  padding-right: 60px;
+
+}
+.nav-item {
+  font-size: 36px;
+  padding: 1em;
+  color: white;
+  font-weight: normal;
+  transition: color 0.3s ease;
+  
+}
+.lmao{
+  color: yellow;
+  font-weight: normal;
+  transition: color 0.3s ease;
+  font-size: 36px;
+  padding: 1em;
+}
+.nav-item:hover {
+  color: yellow;
+}
+@media only screen and (max-width: 800px) {
   .space{
-    flex: 1 1 auto;
+    flex: none;
   }
   .nav-item{
-    font-size: 36px;
+    font-size: 24px;
     padding: 1em;
   }
-  #userimage{
-    width: 35px;
-    height: 35px;
+  .nav-text{
+    font-size: 0px;
   }
-
-  nav {
-    border-bottom: 1px solid #E4E4E4;
-    box-shadow: 0 0 4px rgba(0,0,0,.1), 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 25px;
-    padding: 0 5vw;
-    padding-right: 60px;
-  
-  }
-  .nav-item {
-    color: white;
-    font-weight: normal;
-    transition: color 0.3s ease;
-    
-  }
-  .nav-item:hover {
-    color: yellow;
-  }
+}

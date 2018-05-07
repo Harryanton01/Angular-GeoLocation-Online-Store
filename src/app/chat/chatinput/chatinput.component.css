@@ -14,12 +14,14 @@
 }
 
 .chatButton{
-    padding: 2px 14px;
-    font-size: 1.3em;
-    font-family: 'Droid Sans', sans-serif;
-    background-color: #2A2845;
-    color: white;
-    min-width: 50px;
+    font-size: 32px;
+    width: 9.8em;
+    color : white;
+    background-color: #00B200;
+    border-radius: 10px;
+    box-shadow: 5px rgba(0, 0, 0, 0.26);
+    padding: 10px;
+    margin-top: 15px;
 }
 .input{
     margin: auto;

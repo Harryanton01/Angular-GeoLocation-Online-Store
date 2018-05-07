@@ -1,28 +1,13 @@
 <mat-toolbar class="navwrapper" color="primary">
   <div>
-    <a class="nav-item" routerLink="/">
-      <img src="https://www.thelivingcoast.org.uk/admin/resources/logos/university-of-brighton-logo2-w200.jpeg" width="30px" alt="Geo App"/> GeoLocation App
+    <a class="nav-text" routerLink="/">
+     GeoLocation App
     </a>
   </div>
   <span class="space"></span>
-  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-  <span class="nav-toggle" (click)="toggleCollapse()" [ngClass]="{'is-active': show}">
-    <span></span>
-    <span></span>
-    <span></span>
-  </span>
-  
-
-      <div class="box" >
-          <div *ngIf="auth.user | async; then authenticated else guest">
-                  <!-- template will replace this div -->
-          </div>
-        </div>
-
+          <div *ngIf="auth.user | async; then authenticated else guest"></div>
   <!-- User NOT logged in -->
   <ng-template #guest>
-      <div [ngClass]="{'is-active': show}">
           <mat-icon class="nav-item" routerLink="/home">home</mat-icon>
           <mat-icon class="nav-item" [matMenuTriggerFor]="authMenu">
             account_circle
@@ -31,16 +16,15 @@
               <a mat-menu-item routerLink="/register">Register</a>
             </mat-menu>
           </mat-icon>
-        </div>
   </ng-template>
   
   <!-- User logged in -->
   <ng-template #authenticated>
     <div *ngIf="auth.user | async as user">
-      <mat-icon class="nav-item" routerLink="/newitem">add_circle</mat-icon>
-      <mat-icon class="nav-item" routerLink="/messages">message</mat-icon>
       <mat-icon class="nav-item" routerLink="/home">home</mat-icon>
-      <img id="userimage" [matMenuTriggerFor]="userMenu" [src]="user.photoURL || 'https://api.adorable.io/avatars/109/fire.png'">
+      <mat-icon [ngClass]="(read) ? 'nav-item' : 'lmao'" routerLink="/messages">message</mat-icon>
+      <mat-icon class="nav-item" routerLink="/newitem">add_circle</mat-icon>
+      <mat-icon class="nav-item" [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
       <mat-menu #userMenu="matMenu">
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>

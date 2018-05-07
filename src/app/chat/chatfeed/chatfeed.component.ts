@@ -35,6 +35,12 @@ export class ChatfeedComponent implements OnInit {
         this.db.object<any>('/chatrooms/'+id).valueChanges()
         .subscribe(x=>{
           if(x.roomInitialiser===this.user.uid || x.secondUser===this.user.uid){
+            if(x.roomInitialiser===this.user.uid && x.initRead==false){
+              this.db.object<any>('/chatrooms/'+id).update({initRead: true});
+            }
+            if(x.secondUser===this.user.uid && x.secondUser==false){
+              this.db.object<any>('/chatrooms/'+id).update({secondUser: true});
+            }
             this.list=this.chat.getMessages(id);
             this.feed=this.list.valueChanges();
             this.alert.clear();

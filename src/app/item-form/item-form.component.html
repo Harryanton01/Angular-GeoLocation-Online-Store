@@ -12,8 +12,11 @@
     </mat-form-field>
     <br>
     <mat-form-field class="input">
-        <input matInput placeholder="Location" formControlName="location">
+        <input matInput placeholder="Postcode" formControlName="location">
     </mat-form-field>
+    <br>
+    <button mat-button type="button" class="mat-raised-button" (click)="getCurrentLocation()">Get Current Location <mat-icon>room</mat-icon></button>
+    <br>
     <br>
     <mat-slide-toggle formControlName="enablelocation">Display Location</mat-slide-toggle>
     <br>
