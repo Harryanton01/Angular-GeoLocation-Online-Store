@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
 import {User} from './authentication.service'
 import {Message} from './message'
+import { Timestamp } from 'rxjs';
 
 @Injectable()
 

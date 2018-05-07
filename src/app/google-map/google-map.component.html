@@ -1,5 +1,4 @@
 <div *ngIf="lat && long && itemlat && itemlong">
-
   <agm-map [latitude]="lat" [longitude]="long">
   <agm-direction *ngIf="dir" [origin]="dir.startingPoint" [destination]="dir.destination">
   </agm-direction>

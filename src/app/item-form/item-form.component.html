@@ -1,3 +1,5 @@
+<div class="parent">
+    <div class="child">
 <div *ngIf="loggedIn">
 <form class="form-wrapper" [formGroup]="itemForm">
     <h2 class="mat-title">Add New Item Listing</h2>
@@ -21,5 +23,7 @@
     <br>
     <button mat-button type="submit" class="mat-raised-button mat-primary" [disabled]="!itemForm.valid" (click)='getCoordinates()'>Submit</button>
 </form>
+</div>
+</div>
 </div>
 

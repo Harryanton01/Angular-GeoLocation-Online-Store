@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs/Subscription'
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {User} from '../services/authentication.service'
+import { AngularFireModule, FirebaseAppConfigToken } from 'angularfire2';
 
 @Component({
   selector: 'app-home',
@@ -34,8 +35,11 @@ export class HomeComponent{
   private user: firebase.User;
   private unsubscribe: Subject<void> = new Subject<void>();
 
+
   constructor(private router: Router, private itemService: ItemService, private post: PostcodeService, private alert: AlertService, 
-    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { }
+    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { 
+      
+    }
   
   ngOnInit(){
     this.itemarray=null;
@@ -51,6 +55,7 @@ export class HomeComponent{
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
   search(){
     this.alert.clear();
     this.itemarray=null;
@@ -72,7 +77,7 @@ export class HomeComponent{
   queryUserPostcode(){
     this.db.doc<User>('users/'+this.user.uid).valueChanges().subscribe(x =>{
       (<HTMLInputElement>document.getElementById('postcode')).value=x.postcode;
-      //this.search();
+
     })
   }
   getItems(){
@@ -85,9 +90,7 @@ export class HomeComponent{
           this.itemarray=null;
         }
         this.showSpinner=false;
-      },3000);
-      this.itemarray = new Observable<Item[]>()
-      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, 10)
+
       .takeUntil(this.unsubscribe);
       this.itemarray.subscribe(() => {
         this.alert.clear();
@@ -98,5 +101,24 @@ export class HomeComponent{
   }
   onItemSelect(item: Item){
     this.selectedItem=item;
+  }
+  getCurrentLocation(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position=>{
+        let location = new firestore.GeoPoint(position.coords.latitude,position.coords.longitude);
+        this.post.findNearestPostcode(location)
+        .subscribe(val => {
+          if(val.result==null){
+            this.alert.update('The Postcode Service is currently not available. Please manually input your postcode.', 'error')
+          }
+          else{
+            (<HTMLInputElement>document.getElementById('postcode')).value=val.result[0].postcode;
+          }
+        });
+      });
+    }
+    else{
+      this.alert.update('Browser Denied Location! Please manually input your postcode.', 'error')
+    }
   }
 }

@@ -20,3 +20,4 @@ exports.RemoveItemLocation = functions.firestore.document('/items/{itemid}')
     .onDelete(event => {
         return geoFire.remove(event.id)
     })
+

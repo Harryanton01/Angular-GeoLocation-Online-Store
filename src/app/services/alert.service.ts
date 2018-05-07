@@ -17,6 +17,9 @@ export class AlertService {
     update(content: string, style: 'error' | 'info' | 'success') {
       const msg: Message = { content, style };
       this._msgSource.next(msg);
+      setTimeout(()=>{
+        this._msgSource.next(null);
+      },5300);
     }
   
     clear() {

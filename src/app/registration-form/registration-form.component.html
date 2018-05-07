@@ -1,3 +1,5 @@
+<div class="parent">
+<div class="child">
 <div *ngIf="!(auth.user | async); else alreadyLoggedIn">
 <form class="form-wrapper" [formGroup]="registrationForm"  (ngSubmit)="register()">
   <h2 class="mat-title">User Registration</h2>
@@ -32,3 +34,5 @@
       Already logged in!
     </p>
   </ng-template>
+</div>
+</div>

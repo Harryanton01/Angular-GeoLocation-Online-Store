@@ -43,6 +43,7 @@ export class ItemFormComponent implements OnInit {
         this.itemForm.controls.location.setValue(this.user.postcode);
       }
     });
+    this.alert.update('Please note that your location will be securely stored and can only be accessed by you.','info');
   }
   createForm(){
     this.itemForm = this.fb.group({

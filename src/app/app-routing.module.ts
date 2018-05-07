@@ -14,7 +14,6 @@ import { UserlistComponent } from './chat/userlist/userlist.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
-  { path: 'item', component: ItemDetailsComponent },
   { path: 'itemlist', component: ItemListComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'newitem', component: ItemFormComponent},

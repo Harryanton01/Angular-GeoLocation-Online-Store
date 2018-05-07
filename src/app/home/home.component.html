@@ -1,13 +1,11 @@
-<div class="search">
+
   <h1 class="mat-title">Search for nearby items</h1>
   <mat-form-field>
     <input class="input-postcode" matInput placeholder="INPUT POSTCODE" id="postcode">
   </mat-form-field>
 
-<button mat-icon-button (click)="search()">
-    <mat-icon>search</mat-icon>
-</button>
 </div>
+
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 <div *ngFor="let item of itemarray | async" (click)="onItemClick(item)">
   <mat-card>
@@ -25,7 +23,7 @@
       </div>
     </div>
     </a>
-    <mat-divider></mat-divider></mat-card>>
+</mat-card>
 </div>
 
 
