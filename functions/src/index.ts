@@ -15,3 +15,9 @@ exports.RemoveItemLocation = functions.firestore.document('/items/{itemid}')
     .onDelete(event => {
         return geoFire.remove(event.id)
     })
+
+exports.UpdateItemLocation = functions.firestore.document('/items/{itemid}')
+    .onUpdate(event => {
+        const location = event.after.data().location;
+        return geoFire.set(event.after.id, [location.latitude, location.longitude]);
+    })

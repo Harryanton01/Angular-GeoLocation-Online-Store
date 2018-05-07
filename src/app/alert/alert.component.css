@@ -2,11 +2,40 @@
     padding: 20px;
     background-color: #f44336;
     color: white;
+    text-align: center;
+    -webkit-animation: seconds 1.0s forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-delay: 5s;
+    animation: seconds 1.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 5s;
+    position: relative;
 }
 .is-info {
     padding: 20px;
     background-color: #efb700;
     color: white;
+    text-align: center;
+    -webkit-animation: seconds 1.0s forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-delay: 5s;
+    animation: seconds 1.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 5s;
+    position: relative;
+}
+.is-success{
+    padding: 20px;
+    background-color: #4BB543;
+    color: white;
+    text-align: center;
+    -webkit-animation: seconds 1.0s forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-delay: 5s;
+    animation: seconds 1.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 5s;
+    position: relative;
 }
 .closebtn {
     margin-left: 15px;
@@ -22,3 +51,23 @@
 .closebtn:hover {
     color: black;
 }
+@-webkit-keyframes seconds {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      left: -9999px; 
+      position: absolute;   
+    }
+  }
+  @keyframes seconds {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      left: -9999px;
+      position: absolute;     
+    }
+  }

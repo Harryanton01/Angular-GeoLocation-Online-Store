@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs/Subscription'
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {User} from '../services/authentication.service'
+import { AngularFireModule, FirebaseAppConfigToken } from 'angularfire2';
 
 @Component({
   selector: 'app-home',
@@ -32,11 +33,17 @@ export class HomeComponent{
   private itemarray: Observable<Item[]>
   private selectedItem: Item;
   private user: firebase.User;
+  private unsubscribe: Subject<void> = new Subject<void>();
+  private distance = 5;
+  private settings: firestore.Settings;
 
   constructor(private router: Router, private itemService: ItemService, private post: PostcodeService, private alert: AlertService, 
-    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { }
+    private db: AngularFirestore, private geoDB: AngularFireDatabase, private auth: AngularFireAuth) { 
+      
+    }
   
   ngOnInit(){
+    this.itemarray=null;
     this.alert.clear();
     this.auth.authState.subscribe(auth => {
       if(auth !== undefined && auth !==null){
@@ -45,7 +52,14 @@ export class HomeComponent{
       }
     });
   }
-
+  ngOnDestroy(){
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+  onDistanceChange(event: any){
+    this.distance = event.value;
+    this.search();
+  }
   search(){
     this.alert.clear();
     this.itemarray=null;
@@ -67,7 +81,6 @@ export class HomeComponent{
   queryUserPostcode(){
     this.db.doc<User>('users/'+this.user.uid).valueChanges().subscribe(x =>{
       (<HTMLInputElement>document.getElementById('postcode')).value=x.postcode;
-      this.search();
     })
   }
   getItems(){
@@ -80,9 +93,10 @@ export class HomeComponent{
           this.itemarray=null;
         }
         this.showSpinner=false;
-      },4000);
+      },2500);
       this.itemarray = new Observable<Item[]>()
-      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, 10);
+      this.itemarray=this.itemService.getItems(x.result.latitude, x.result.longitude, this.distance)
+      .takeUntil(this.unsubscribe);
       this.itemarray.subscribe(() => {
         this.alert.clear();
         this.showSpinner=false;
@@ -92,5 +106,24 @@ export class HomeComponent{
   }
   onItemSelect(item: Item){
     this.selectedItem=item;
+  }
+  getCurrentLocation(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position=>{
+        let location = new firestore.GeoPoint(position.coords.latitude,position.coords.longitude);
+        this.post.findNearestPostcode(location)
+        .subscribe(val => {
+          if(val.result==null){
+            this.alert.update('The Postcode Service is currently not available. Please manually input your postcode.', 'error')
+          }
+          else{
+            (<HTMLInputElement>document.getElementById('postcode')).value=val.result[0].postcode;
+          }
+        });
+      });
+    }
+    else{
+      this.alert.update('Browser Denied Location! Please manually input your postcode.', 'error')
+    }
   }
 }

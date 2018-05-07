@@ -13,13 +13,20 @@
       <div class="details">
           Posted by {{item.username}} on {{item.timestamp | date:'medium' }}
       </div>
-      <div class="itembutton" *ngIf="loggedIn" >
-          <button (click)="message()">Message</button>
+      <div class="itembutton" *ngIf="(loggedIn && !personalItem) else notPersonal" >
+        <button (click)="message()">Message</button>
         </div>
-      </div>
+      
+      <ng-template #notPersonal>
+        <div class="itembutton" *ngIf="loggedIn && personalItem">
+            <button class="mat-raised-button" (click)="openUpdateForm()"> Update </button>
+            <button class="mat-raised-button" (click)="delete()"> Delete </button>
+        </div>
+      </ng-template>
+    </div>
     
       
       
-<div *ngIf="displayLocation">
+<div *ngIf="displayLocation && loggedIn && !personalItem">
     <app-google-map [itemID]="this.itemID"></app-google-map>
   </div>

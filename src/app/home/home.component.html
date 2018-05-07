@@ -1,10 +1,21 @@
-<div class="search">
-  <h1 class="mat-title">Input your Postcode</h1>
-<input class="input-postcode" matInput id="postcode">
-<button mat-icon-button (click)="search()">
-    <mat-icon>search</mat-icon>
-</button>
+
+<div class="parent">
+  <div class="child">
+  <h1 class="mat-title">Search for nearby items</h1>
+  <mat-form-field>
+    <input class="input-postcode" matInput placeholder="INPUT POSTCODE" id="postcode">
+  </mat-form-field>
+  
+  <mat-divider></mat-divider>
+    <p>Distance: {{distance}} km</p>
+    <mat-slider min="1" max="20" value="5" id="distanceslider" (input)="onDistanceChange($event)"></mat-slider>
+    <br>
+    <button class="mat-raised-button mat-primary" mat-icon-button (click)="search()">
+        <mat-icon>search</mat-icon>
+        </button>
+    </div>
 </div>
+
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 <div *ngFor="let item of itemarray | async" (click)="onItemClick(item)">
   <mat-card>
@@ -22,7 +33,7 @@
       </div>
     </div>
     </a>
-    <mat-divider></mat-divider></mat-card>>
+</mat-card>
 </div>
 
 

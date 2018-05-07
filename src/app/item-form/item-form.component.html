@@ -1,3 +1,5 @@
+<div class="parent">
+    <div class="child">
 <div *ngIf="loggedIn">
 <form class="form-wrapper" [formGroup]="itemForm">
     <h2 class="mat-title">Add New Item Listing</h2>
@@ -16,10 +18,12 @@
     <mat-slide-toggle formControlName="enablelocation">Display Location</mat-slide-toggle>
     <br>
     <br>
-    <input type="file" (change)="onFileSelected($event)">
+    <input class="mat-raised-button" type="file" (change)="onFileSelected($event)">
     <br>
     <br>
-    <button mat-button type="submit" class="button" [disabled]="!itemForm.valid" (click)='getCoordinates()'>Submit</button>
+    <button mat-button type="submit" class="mat-raised-button mat-primary" [disabled]="!itemForm.valid" (click)='getCoordinates()'>Submit</button>
 </form>
+</div>
+</div>
 </div>
 

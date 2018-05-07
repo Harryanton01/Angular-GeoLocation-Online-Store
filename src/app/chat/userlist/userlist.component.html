@@ -1,10 +1,18 @@
+<div class="wrapper">
+  <div class="one">
 <div *ngFor="let user of users | async" >
-    <a routerLink="/messages/{{user.chatID}}">
-  <li>{{user.user2}}</li>
+  <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'lmao': 'read'">
+    <a (click)="clearUnread(user)" routerLink="/chat/{{user.chatID}}">
+  <li>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</li>
   </a>
+  </div>
 </div>
 <div *ngFor="let user of users2 | async" >
-    <a routerLink="/messages/{{user.chatID}}">
-    <li>{{user.user1}}</li>
+    <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'lmao': 'read'">
+      <a (click)="clearUnread(user)" routerLink="/chat/{{user.chatID}}">
+    <li>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</li>
     </a>
+    </div>
   </div>
+</div>
+</div>

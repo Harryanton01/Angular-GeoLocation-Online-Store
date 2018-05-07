@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+      <mat-form-field class="input">
+        <input matInput placeholder="Title" formControlName="title" required>
+        </mat-form-field>
+         <br>
+    <mat-form-field class="input">
+        <input matInput placeholder="Description" formControlName="description">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="input">
+        <input matInput placeholder="Location" formControlName="location">
+    </mat-form-field>
+    <br>
+    <mat-slide-toggle formControlName="enablelocation">Display Location</mat-slide-toggle>
+    <br>
+    <br>
+    <input type="file" (change)="onFileSelected($event)">
+    <br>
+    <br>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary" [disabled]="!form.valid" (click)="save()">Save</button>
+</mat-dialog-actions>

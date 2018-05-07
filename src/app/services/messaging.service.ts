@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
 import {User} from './authentication.service'
 import {Message} from './message'
+import { Timestamp } from 'rxjs';
 
 @Injectable()
 
@@ -34,7 +35,6 @@ if(msg===''){
   return;
 }
 const timestamp = this.getTimeStamp().toJSON();
-console.log(timestamp)
 const email = this.user.email;
 this.messages = this.getMessages(receiveruid);
 this.messages.push({
@@ -46,7 +46,6 @@ this.messages.push({
 }
 
 getMessages(messageid: string): AngularFireList<Message> {
-console.log('message ID: '+messageid)
 return this.db.list('/messages/'+messageid, ref => ref.limitToLast(5).orderByKey());
 }
 compareStrings(string1, string2: boolean){
@@ -70,7 +69,7 @@ getTimeStamp(): Date{
   const now = new Date();
   let year = now.getFullYear()
   let month = now.getMonth()
-  let day = now.getDay()
+  let day = now.getUTCDate()
   let hour = now.getUTCHours()
   let minute = now.getUTCMinutes()
   let seconds = now.getUTCSeconds()

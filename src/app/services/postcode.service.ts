@@ -15,6 +15,8 @@ export class PostcodeService {
     return this.http.get('https://api.postcodes.io/postcodes/'+postcode+'/validate').take(1);
   }
   findNearestPostcode(geoPoint: firestore.GeoPoint): Observable<any>{
-    return this.http.get('https://api.postcodes.io/postcodes?lon='+geoPoint.longitude+'&lat='+geoPoint.latitude).take(1);
+    console.log(geoPoint.longitude)
+    console.log(geoPoint.latitude)
+    return this.http.get('https://api.postcodes.io/postcodes?lon='+geoPoint.longitude+'&lat='+geoPoint.latitude+"&wideSearch=true").take(1);
   }
 }

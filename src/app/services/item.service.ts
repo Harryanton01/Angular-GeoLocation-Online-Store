@@ -4,7 +4,7 @@ import { of } from 'rxjs/observable/of';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
-import { firestore } from 'firebase/app'
+import { firestore } from 'firebase/app';
 import * as GeoFire from "geofire";
 import { Upload } from '../uploads/upload'
 import { UploadService } from '../uploads/upload.service'
@@ -15,6 +15,7 @@ import { mergeMap, switchMap, scan } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { MessagingService } from './messaging.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AlertService } from './alert.service';
 
 
 export interface Item{
@@ -45,9 +46,10 @@ export class ItemService {
   private results =  new Subject<Item[]>(); 
   username: string | null;
   itemarray: Item[];
-
+  private x;
+  
   constructor(private geoDB: AngularFireDatabase, private db: AngularFirestore, private afStorage: AngularFireStorage, private authServ: AuthenticationService,
-  private message: MessagingService, private auth: AngularFireAuth) {
+  private message: MessagingService, private auth: AngularFireAuth, private alert: AlertService) {
     this.auth.authState.subscribe(auth => {
       if(auth !== undefined && auth !==null){
         this.db.doc<User>('users/'+auth.uid).valueChanges()
@@ -59,14 +61,22 @@ export class ItemService {
    }
   ngOnDestroy(){
     this.results.unsubscribe();
+    this.results.next();
+    this.results.complete();
+    this.itemlistID.next();
+    this.itemlistID.complete();
     this.itemlistID.unsubscribe();
     this.geoFire.unsubscribe();
+    this.results=null;
   }
    public getItems(lat: number,long: number, radius: number): Observable<Item[]>{
     let queryRef= this.geoDB.list('/items');
-
     this.geoFire = new GeoFire(queryRef.query.ref);
-    setTimeout(() => {this.geoFire.query({
+    this.itemlistID= new Subject<string>();
+    if(this.x){
+      this.x.cancel();
+    }
+    setTimeout(() => {this.x = this.geoFire.query({
       center: [lat, long],
       radius: radius
     }).on('key_entered', (key, location, distance)=>{
@@ -75,12 +85,12 @@ export class ItemService {
     });}, 1000);
   
     this.itemlistID.mergeMap(itemID => this.db.collection('items').doc<Item>(itemID)
-      .valueChanges())
+      .valueChanges().take(1))
       .scan((acc, curr) => [...acc, curr],[])
-      .delay(500)
       .subscribe(x =>{
         this.results.next(x);
         console.log(x);
+        this.itemlistID.complete();
       });
       return this.results;
    }
@@ -93,6 +103,7 @@ export class ItemService {
       this.itemDoc = this.db.doc<Item>('items/'+key);
       console.log(key);
       this.itemDoc.set(data);
+      this.alert.update("The item has been successfully created!","success");
   }
   createItemwithImage(data: Item, file: File){
     let key=this.db.createId();
@@ -105,6 +116,28 @@ export class ItemService {
       data.timestamp=this.message.getTimeStamp().toJSON();
       data.username=this.username;
       this.itemDoc.set(data);
+      this.alert.update("The item has been successfully created!","success");
     });
+  }
+  updateItemwithImage(data: Item, file: File){
+    let key = data.itemID;
+    this.itemDoc = this.db.doc<Item>('items/'+key);
+    let upload=this.afStorage.upload(key, file);
+    upload.downloadURL().subscribe(url =>{
+      data.imageURL=url;
+      this.itemDoc.update(data);
+      this.alert.update("The item has been successfully updated!","success");
+    })
+  }
+  updateItem(data: Item){
+    let key = data.itemID;
+    this.itemDoc = this.db.doc<Item>('items/'+key);
+    this.itemDoc.update(data);
+    this.alert.update("The item has been successfully updated!","success");
+  }
+  deleteItem(itemID: string){
+    this.itemDoc = this.db.doc<Item>('items/'+itemID);
+    this.itemDoc.delete();
+    this.alert.update("The item has been successfully deleted!","success");
   }
 }

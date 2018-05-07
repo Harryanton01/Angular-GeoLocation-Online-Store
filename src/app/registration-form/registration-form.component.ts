@@ -11,6 +11,7 @@ import { UsernameValidator } from '../validators/username.validator';
 import 'rxjs/add/operator/take';
 import { firestore } from 'firebase/app'
 import { GeoService } from '../services/geo-service.service';
+import { AlertService } from '../services/alert.service';
 
 
 type UserFields = 'email' | 'password' |'postcode' | 'username';
@@ -54,7 +55,7 @@ export class RegistrationFormComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private post: PostcodeService,
-  private geoService: GeoService) { }
+  private geoService: GeoService, private alert: AlertService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -85,19 +86,23 @@ export class RegistrationFormComponent implements OnInit {
         let location = new firestore.GeoPoint(position.coords.latitude,position.coords.longitude);
         this.post.findNearestPostcode(location)
         .subscribe(val => {
-          this.registrationForm.controls.postcode.setValue(val.result[0].postcode);
+          if(val.result==null){
+            this.alert.update('The Postcode Service is currently not available. Please manually input your postcode.', 'error')
+          }
+          else{
+            this.registrationForm.controls.postcode.setValue(val.result[0].postcode);
+          }
         });
       });
     }
     else{
-      console.log('Browser Denied Location!')
+      this.alert.update('Browser Denied Location! Please manually input your postcode.', 'error')
     }
   }
   register(){
     let email=this.registrationForm.controls.email.value;
     let password=this.registrationForm.controls.password.value;
     let userData = this.registrationForm.value;
-    console.log(email+' '+ password + ' '+ userData);
     this.auth.signupWithEmail(email, password , userData);
   }
   onValueChanged(data?: any) {
