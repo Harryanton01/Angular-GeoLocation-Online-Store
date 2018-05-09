@@ -86,4 +86,12 @@
         max-height: 380px;
         max-width: 300px;
         }
+        .message-button{
+          font-size: 24px;
+          width: 12em;
+          color : white;
+          background-color: #00B200;
+          border-radius: 10px;
+          box-shadow: 5px rgba(0, 0, 0, 0.26);
+        }
     }
