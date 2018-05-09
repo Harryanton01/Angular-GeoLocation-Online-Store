@@ -1,3 +1,6 @@
+# Installation
+You will need NPM (node package manager) to run a local version of this application. Locate to the AngularApp folder and run the "npm install" command on your terminal. This can also be accessed on: https://cloud-52c1a.firebaseapp.com/.
+
 # FinalApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
