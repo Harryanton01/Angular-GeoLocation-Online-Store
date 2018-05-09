@@ -27,7 +27,7 @@ nav {
   transition: color 0.3s ease;
   
 }
-.lmao{
+.unread{
   color: yellow;
   font-weight: normal;
   transition: color 0.3s ease;
@@ -47,5 +47,12 @@ nav {
   }
   .nav-text{
     font-size: 0px;
+  }
+  .unread{
+    color: yellow;
+    font-weight: normal;
+    transition: color 0.3s ease;
+    font-size: 24px;
+    padding: 1em;
   }
 }

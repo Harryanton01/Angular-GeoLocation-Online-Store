@@ -1,16 +1,16 @@
 <div class="wrapper">
   <div class="one">
 <div *ngFor="let user of users | async" >
-  <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'lmao': 'read'">
+  <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'default': 'unread'">
     <a (click)="clearUnread(user)" routerLink="/chat/{{user.chatID}}">
-  <li>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</li>
+  <p>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</p>
   </a>
   </div>
 </div>
 <div *ngFor="let user of users2 | async" >
-    <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'lmao': 'read'">
+    <div [ngClass]="((user.secondRead == true && user.secondUser == userID) ||(user.initRead == true && user.roomInitialiser == userID)) ? 'default': 'unread'">
       <a (click)="clearUnread(user)" routerLink="/chat/{{user.chatID}}">
-    <li>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</li>
+    <p>{{user.roomInitialiserAlias}} - {{user.secondUserAlias}} ChatRoom</p>
     </a>
     </div>
   </div>

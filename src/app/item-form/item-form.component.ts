@@ -84,14 +84,7 @@ export class ItemFormComponent implements OnInit {
     this.post.getPostCode(this.itemForm.controls.location.value).subscribe(x =>{
       this.itemData=this.itemForm.value;
       this.itemData.location=new firestore.GeoPoint(x.result.latitude, x.result.longitude);
-      if(this.selectedFile != null){
-        this.itemservice.createItemwithImage(this.itemData, this.selectedFile);
-        this.router.navigate(['/home']);
-      }
-      else{
-        this.itemservice.createItem(this.itemData);
-        this.router.navigate(['/home']);
-      }
+        this.itemservice.createItem(this.itemData, this.selectedFile);
     });
   }
   onFileSelected(event){

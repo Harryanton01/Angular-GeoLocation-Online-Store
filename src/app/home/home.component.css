@@ -113,4 +113,8 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .image img{
+    border-radius: 25px;
+    max-width: 300px;
+  }
 }

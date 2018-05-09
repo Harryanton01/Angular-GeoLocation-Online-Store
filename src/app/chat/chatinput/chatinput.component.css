@@ -28,3 +28,27 @@
     width: 30%;
     padding: 10px;
 }
+@media only screen and (max-width: 800px) {
+    .chatButton{
+        font-size: 18px;
+        color : white;
+        background-color: #00B200;
+        border-radius: 10px;
+        box-shadow: 5px rgba(0, 0, 0, 0.26);
+        padding: 10px;
+        margin-top: 15px;
+    }
+    .chatInput{
+        font-size: 0.8em;
+        font-family: 'Open Sans', sans-serif;
+        background-color: #eee;
+        color: #000;
+        transition: 0.1s ease-out;
+        padding-left: 0px;
+    }
+    .input{
+        margin: auto;
+        width: 250px;
+        padding: 10px;
+    }
+}

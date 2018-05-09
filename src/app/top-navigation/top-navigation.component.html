@@ -22,7 +22,7 @@
   <ng-template #authenticated>
     <div *ngIf="auth.user | async as user">
       <mat-icon class="nav-item" routerLink="/home">home</mat-icon>
-      <mat-icon [ngClass]="(read) ? 'nav-item' : 'lmao'" routerLink="/messages">message</mat-icon>
+      <mat-icon [ngClass]="(read) ? 'nav-item' : 'unread'" routerLink="/messages">message</mat-icon>
       <mat-icon class="nav-item" routerLink="/newitem">add_circle</mat-icon>
       <mat-icon class="nav-item" [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
       <mat-menu #userMenu="matMenu">

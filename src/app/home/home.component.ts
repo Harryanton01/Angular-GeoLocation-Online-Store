@@ -56,7 +56,6 @@ export class HomeComponent{
   }
   onDistanceChange(event: any){
     this.distance = event.value;
-    this.search();
   }
   search(){
     this.alert.clear();
